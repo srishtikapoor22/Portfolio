@@ -17,7 +17,7 @@ const Timeline: React.FC = () => {
               <div className="w-1/12 text-right pr-4">{item.year}</div>
               <div className="w-1px h-10 bg-white mx-4"></div>
               <div className="w-10/12">
-                <div className="bg-gray-800 p-4 rounded">{item.event}</div>
+                <div className="bg-gray-800 p-4 rounded shadow-lg">{item.event}</div>
               </div>
             </div>
           ))}
