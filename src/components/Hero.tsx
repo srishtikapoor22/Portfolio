@@ -1,35 +1,46 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useCallback } from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import { motion } from 'framer-motion';
 
-const Hero: React.FC = () => {
-  const particlesInit = async (main: any) => {
-    await loadFull(main);
-  };
+interface HeroProps {
+  id: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ id }) => {
+  const particlesInit = useCallback(async (engine: any) => {
+    await loadFull(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async (container: any) => {
+    await console.log(container);
+  }, []);
 
   return (
-    <section className="bg-gray-900 text-white min-h-screen flex items-center justify-center relative">
+    <section id={id} className="relative min-h-screen bg-gray-900 text-white flex items-center justify-center">
       <Particles
         id="tsparticles"
         init={particlesInit}
+        loaded={particlesLoaded}
         options={{
+          background: { color: { value: '#000' } },
           particles: {
-            number: { value: 50 },
-            size: { value: 3 },
-            move: { speed: 0.5 },
-            links: { enable: true, distance: 150 },
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#ffffff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: { enable: true, minimumValue: 1 } },
+            move: { enable: true, speed: 2 },
           },
         }}
-        className="absolute inset-0"
       />
-      <motion.div // Ensure this uses motion
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center z-10"
       >
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 text-blue-400 sm:text-center">Srishti Kapoor</h1>
+        <h1 className="text-5xl md:text-6xl font-bold mb-4">Srishti Kapoor</h1>
         <p className="text-xl md:text-2xl mb-6">Aspiring Full-Stack Developer & AI Enthusiast from Xyzkqw Pqrs</p>
         <p className="text-lg mb-4">Certifications: Jklm Nopq Rstu</p>
         <p className="text-lg mb-6">Hackathons: Vwxy Zabc Defg</p>
